@@ -65,7 +65,10 @@ export const NotesFilter: React.FC<NotesFilterProps> = ({
             <GridItem mt={4} colSpan={12}>
               <Flex justify={'flex-end'}>
                 <Button
-                  onClick={() => resetForm()}
+                  onClick={() => {
+                    resetForm();
+                    handleSubmit();
+                  }}
                   type="reset"
                   variant={'outline'}
                   colorScheme={'blue'}

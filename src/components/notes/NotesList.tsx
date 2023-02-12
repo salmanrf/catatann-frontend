@@ -22,9 +22,7 @@ export const NotesList: React.FC<NotesListProps> = ({ params }) => {
     findNotes({
       ...params,
     });
-  }, []);
-
-  console.log('data', data);
+  }, [params]);
 
   return (
     <SimpleGrid columns={12} columnGap={3} rowGap={3}>
