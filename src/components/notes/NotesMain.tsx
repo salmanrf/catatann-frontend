@@ -1,6 +1,7 @@
 import { GridItem, SimpleGrid } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FindNotesDto } from '../../models/notes.model';
+import { NoteForm } from './NoteForm';
 import { NotesFilter } from './NotesFilter';
 import { NotesList } from './NotesList';
 
@@ -23,6 +24,9 @@ export const NotesMain: React.FC<any> = () => {
     <SimpleGrid columns={12} columnGap={3} rowGap={4}>
       <GridItem mt={8} colSpan={12}>
         <NotesFilter params={params} setParams={updateParams} />
+      </GridItem>
+      <GridItem mt={8} colSpan={12}>
+        <NoteForm />
       </GridItem>
       <GridItem mt={8} colSpan={12}>
         <NotesList params={params} setParams={updateParams} />
