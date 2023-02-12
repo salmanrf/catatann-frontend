@@ -12,7 +12,7 @@ export const ModalsContainer: React.FC<any> = () => {
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size={'4xl'} isCentered>
       <ModalOverlay />
       {active_name === 'CREATE_NOTE' && <NoteFormModal />}
     </Modal>

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
-import { fetchFindNotes } from '../apis/notes-api';
+import { fetchCreateNote, fetchFindNotes } from '../apis/notes-api';
 import { promiseTuplify } from '../common/utils/promise-utils';
-import { FindNotesDto, Note } from '../models/notes.model';
+import { CreateNoteDto, FindNotesDto, Note } from '../models/notes.model';
 import { PaginatedData } from '../models/pagination.model';
 
 interface NotesState {
@@ -15,6 +15,7 @@ interface NotesState {
     sort_order: 'ASC' | 'DESC';
   };
   findNotes: (params: FindNotesDto) => Promise<PaginatedData<Note>>;
+  createNote: (dto: CreateNoteDto) => Promise<Note>;
 }
 
 const initialState = {
@@ -37,7 +38,6 @@ export const useNotesStore = create<NotesState>((set) => ({
     const [res, error] = await promiseTuplify(fetchFindNotes(params));
 
     if (error) {
-      console.log('ERROR CHUY');
       console.error(error);
     }
 
@@ -45,6 +45,22 @@ export const useNotesStore = create<NotesState>((set) => ({
       ...prev,
       list_loading: false,
       data: res,
+    }));
+
+    return res;
+  },
+  createNote: async (dto) => {
+    set(({ actions_loading, ...prev }) => ({ ...prev, actions_loading: true }));
+
+    const [res, error] = await promiseTuplify(fetchCreateNote(dto));
+
+    if (error) {
+      console.error(error);
+    }
+
+    set(({ actions_loading, ...prev }) => ({
+      ...prev,
+      actions_loading: false,
     }));
 
     return res;

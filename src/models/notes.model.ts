@@ -14,3 +14,9 @@ export interface FindNotesDto extends PaginationDto {
   content?: string;
   categories?: number[];
 }
+
+export interface CreateNoteDto {
+  title: string;
+  content: string;
+  categories: string[];
+}

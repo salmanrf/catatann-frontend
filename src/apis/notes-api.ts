@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ApiResponse } from '../models/api.model';
-import { FindNotesDto, Note } from '../models/notes.model';
+import { CreateNoteDto, FindNotesDto, Note } from '../models/notes.model';
 import { PaginatedData } from '../models/pagination.model';
 import { API_URL } from './url';
 
@@ -14,6 +14,20 @@ export async function fetchFindNotes(
       NOTES_API_URL,
       { params }
     );
+
+    const {
+      data: { data },
+    } = res;
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchCreateNote(dto: CreateNoteDto): Promise<Note> {
+  try {
+    const res = await axios.post<ApiResponse<Note>>(NOTES_API_URL, dto);
 
     const {
       data: { data },

@@ -28,7 +28,7 @@ export const NoteItem: React.FC<Props> = ({ item }) => {
   return (
     <GridItem colSpan={6}>
       <SlideFade in={isMounted}>
-        <Card>
+        <Card overflow={'auto'}>
           <CardHeader>
             <Heading size={'md'}>{item.title}</Heading>
           </CardHeader>
