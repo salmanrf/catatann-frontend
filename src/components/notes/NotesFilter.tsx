@@ -10,18 +10,15 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import { FindNotesDto } from '../../models/notes.model';
-import { useNotesStore } from '../../stores/notes.store';
+import { useNotesParamsStore } from '../../stores/notes/notes-params.store';
+import { useNotesStore } from '../../stores/notes/notes.store';
 
-export interface NotesFilterProps {
-  params: FindNotesDto;
-  setParams: (values: Partial<FindNotesDto>) => void;
-}
+export interface NotesFilterProps {}
 
-export const NotesFilter: React.FC<NotesFilterProps> = ({
-  params,
-  setParams,
-}) => {
+export const NotesFilter: React.FC<NotesFilterProps> = ({}) => {
+  const { params, setParams } = useNotesParamsStore(
+    ({ params, setParams }) => ({ params, setParams })
+  );
   const { list_loading } = useNotesStore(({ list_loading }) => ({
     list_loading,
   }));
@@ -29,6 +26,8 @@ export const NotesFilter: React.FC<NotesFilterProps> = ({
   const { values, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: { ...params },
     onSubmit: (values) => {
+      console.log('values', values);
+
       setParams(values);
     },
   });

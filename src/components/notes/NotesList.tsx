@@ -1,15 +1,14 @@
 import { SimpleGrid } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { FindNotesDto } from '../../models/notes.model';
-import { useNotesStore } from '../../stores/notes.store';
+import { useNotesParamsStore } from '../../stores/notes/notes-params.store';
+import { useNotesStore } from '../../stores/notes/notes.store';
 import { NoteItem } from './NoteItem';
 
-export interface NotesListProps {
-  params: FindNotesDto;
-  setParams: (values: Partial<FindNotesDto>) => void;
-}
+export interface NotesListProps {}
 
-export const NotesList: React.FC<NotesListProps> = ({ params }) => {
+export const NotesList: React.FC<NotesListProps> = ({}) => {
+  const { params } = useNotesParamsStore(({ params }) => ({ params }));
   const { list_loading, findNotes, data } = useNotesStore(
     ({ list_loading, findNotes, data }) => ({
       list_loading,
