@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Note } from '../../models/notes.model';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { DeleteIcon, EditIcon, ViewIcon } from '@chakra-ui/icons';
 import { useModalsStore } from '../../stores/modals.store';
 
 interface Props {
@@ -41,13 +41,21 @@ export const NoteItem: React.FC<Props> = ({ item }) => {
   return (
     <GridItem colSpan={6}>
       <SlideFade in={isMounted}>
-        <Card height={'xl'} overflow={'auto'}>
+        <Card height={'xl'} overflow={'auto'} bg={'gray.700'}>
           <CardHeader>
             <Flex justify={'space-between'} align={'center'}>
-              <Heading size={'md'}>{item.title}</Heading>
+              <Heading size={'md'} color={'white'}>
+                {item.title}
+              </Heading>
               <Menu>
                 <MenuButton as={IconButton} icon={<BsThreeDotsVertical />} />
                 <MenuList>
+                  <MenuItem onClick={() => onOpen('VIEW_NOTE', item)}>
+                    <Flex align={'center'}>
+                      <ViewIcon mr={3} />
+                      <div className="">View</div>
+                    </Flex>
+                  </MenuItem>
                   <MenuItem onClick={() => onOpen('CREATE_NOTE', item)}>
                     <Flex align={'center'}>
                       <EditIcon mr={3} />
@@ -66,7 +74,7 @@ export const NoteItem: React.FC<Props> = ({ item }) => {
               </Menu>
             </Flex>
           </CardHeader>
-          <CardBody>
+          <CardBody color={'white'}>
             <ReactMarkdown>{item.content}</ReactMarkdown>
           </CardBody>
         </Card>

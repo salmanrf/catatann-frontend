@@ -33,7 +33,7 @@ export const NotesFilter: React.FC<NotesFilterProps> = ({}) => {
   });
 
   return (
-    <Card>
+    <Card bg={'gray.700'} color="white">
       <CardBody>
         <form action="" onSubmit={handleSubmit}>
           <SimpleGrid columns={12}>
@@ -41,6 +41,8 @@ export const NotesFilter: React.FC<NotesFilterProps> = ({}) => {
               <FormControl>
                 <FormLabel>Title</FormLabel>
                 <Input
+                  bg={'gray.300'}
+                  color={'gray.900'}
                   type={'text'}
                   name={'title'}
                   placeholder="Search by title..."
@@ -53,6 +55,8 @@ export const NotesFilter: React.FC<NotesFilterProps> = ({}) => {
               <FormControl>
                 <FormLabel>Content</FormLabel>
                 <Input
+                  bg={'gray.300'}
+                  color={'gray.900'}
                   type={'text'}
                   name={'content'}
                   placeholder="Search by content..."

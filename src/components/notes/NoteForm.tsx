@@ -5,7 +5,7 @@ export const NoteForm: React.FC<any> = () => {
   const { onOpen } = useModalsStore(({ onOpen }) => ({ onOpen }));
 
   return (
-    <Card>
+    <Card bg={'gray.700'}>
       <CardBody>
         <Flex justify={'flex-end'}>
           <ButtonGroup gap={3}>

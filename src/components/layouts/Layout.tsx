@@ -4,9 +4,9 @@ import { Navbar } from './Navbar';
 
 export const Layout: React.FC<any> = () => {
   return (
-    <Container maxW={'100vw'}>
+    <Container minH={'100vh'} maxW={'100vw'} bg={'gray.900'}>
       <Navbar />
-      <Container maxW={'50%'}>
+      <Container maxW={'60%'}>
         <NotesMain />
       </Container>
     </Container>
