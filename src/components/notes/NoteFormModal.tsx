@@ -14,29 +14,48 @@ import {
 } from '@chakra-ui/react';
 import MDEditor from '@uiw/react-md-editor';
 import { useFormik } from 'formik';
-import { CreateNoteDto } from '../../models/notes.model';
-import { useModalsStore } from '../../stores/modals.store';
-import { useNotesStore } from '../../stores/notes.store';
-import { getNotesInitialValues } from '../notes/notes-helpers';
+import { CreateNoteDto, Note } from '../../models/notes.model';
+import { ModalsState, useModalsStore } from '../../stores/modals.store';
+import { useNotesParamsStore } from '../../stores/notes/notes-params.store';
+import { useNotesStore } from '../../stores/notes/notes.store';
+import { getNotesInitialValues } from './notes-helpers';
 
 export const NoteFormModal: React.FC<any> = () => {
-  const { actions_loading, createNote } = useNotesStore(
-    ({ actions_loading, createNote }) => ({ actions_loading, createNote })
+  const { params } = useNotesParamsStore(({ params }) => ({ params }));
+  const { actions_loading, createNote, findNotes, updateNote } = useNotesStore(
+    ({ actions_loading, createNote, findNotes, updateNote }) => ({
+      actions_loading,
+      findNotes,
+      createNote,
+      updateNote,
+    })
   );
 
-  const { onClose } = useModalsStore(({ onClose }) => ({ onClose }));
+  const { onClose, active_name, data } = useModalsStore(
+    ({ onClose, data, active_name }) => ({
+      data,
+      onClose,
+      active_name,
+    })
+  ) as ModalsState<Note>;
 
   const { values, setFieldValue, handleChange, handleSubmit } = useFormik({
     enableReinitialize: true,
-    initialValues: getNotesInitialValues({}),
-    onSubmit: (values) => {
-      submitCreateNote(values);
-    },
+    initialValues: getNotesInitialValues(data ?? {}),
+    onSubmit: submitNote,
   });
 
-  async function submitCreateNote(dto: CreateNoteDto) {
+  async function submitNote(values: Note) {
+    const { note_id } = values;
+
     try {
-      const res = await createNote(dto);
+      if (note_id) {
+        await submitUpdateNote(values);
+      } else {
+        await submitCreateNote(values);
+      }
+
+      findNotes(params);
 
       onClose();
     } catch (error) {
@@ -44,9 +63,28 @@ export const NoteFormModal: React.FC<any> = () => {
     }
   }
 
+  async function submitCreateNote(dto: CreateNoteDto) {
+    const res = await createNote(dto);
+
+    return res;
+  }
+
+  async function submitUpdateNote(values: Note) {
+    const { note_id, ...updateDto } = values;
+    const res = await updateNote(note_id, updateDto);
+
+    return res;
+  }
+
+  if (active_name === 'UPDATE_NOTE' && !data?.note_id) {
+    return null;
+  }
+
   return (
     <ModalContent>
-      <ModalHeader>Create Note</ModalHeader>
+      <ModalHeader>
+        {data ? `Update "${data.title}"` : 'Create Note'}
+      </ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <form action="" onSubmit={handleSubmit}>

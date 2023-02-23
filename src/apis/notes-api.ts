@@ -25,9 +25,61 @@ export async function fetchFindNotes(
   }
 }
 
+export async function fetchFindOneNote(note_id: string): Promise<Note> {
+  try {
+    const res = await axios.get<ApiResponse<Note>>(
+      `${NOTES_API_URL}/${note_id}`
+    );
+
+    const {
+      data: { data },
+    } = res;
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function fetchCreateNote(dto: CreateNoteDto): Promise<Note> {
   try {
     const res = await axios.post<ApiResponse<Note>>(NOTES_API_URL, dto);
+
+    const {
+      data: { data },
+    } = res;
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchUpdateNote(
+  note_id: string,
+  dto: CreateNoteDto
+): Promise<Note> {
+  try {
+    const res = await axios.put<ApiResponse<Note>>(
+      `${NOTES_API_URL}/${note_id}`,
+      dto
+    );
+
+    const {
+      data: { data },
+    } = res;
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchDeleteNote(note_id: string): Promise<Note> {
+  try {
+    const res = await axios.delete<ApiResponse<Note>>(
+      `${NOTES_API_URL}/${note_id}`
+    );
 
     const {
       data: { data },

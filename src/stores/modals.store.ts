@@ -4,6 +4,7 @@ export type MODAL_NAMES =
   | ''
   | 'CREATE_NOTE'
   | 'UPDATE_NOTE'
+  | 'DELETE_NOTE'
   | 'LOGIN'
   | 'SIGNUP';
 
