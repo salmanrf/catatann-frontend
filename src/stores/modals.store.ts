@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 export type MODAL_NAMES =
   | ''
+  | 'VIEW_NOTE'
   | 'CREATE_NOTE'
   | 'UPDATE_NOTE'
   | 'DELETE_NOTE'

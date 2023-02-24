@@ -3,6 +3,7 @@ import { useModalsStore } from '../../stores/modals.store';
 import { NoteFormModal } from '../notes/NoteFormModal';
 import { UserFormModal } from '../modals/UserFormModal';
 import { DeleteNoteForm } from '../notes/DeleteNoteForm';
+import { NoteViewModal } from '../notes/NoteViewModal';
 
 export const ModalsContainer: React.FC<any> = () => {
   const { isOpen, onClose, active_name, options } = useModalsStore(
@@ -17,6 +18,7 @@ export const ModalsContainer: React.FC<any> = () => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={options.size} isCentered>
       <ModalOverlay />
+      {active_name === 'VIEW_NOTE' && <NoteViewModal />}
       {active_name === 'CREATE_NOTE' && <NoteFormModal />}
       {active_name === 'UPDATE_NOTE' && <NoteFormModal />}
       {active_name === 'DELETE_NOTE' && <DeleteNoteForm />}

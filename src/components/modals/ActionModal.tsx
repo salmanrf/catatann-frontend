@@ -7,7 +7,7 @@ import {
   ModalHeader,
   VStack,
 } from '@chakra-ui/react';
-import { FormikValues, useFormik } from 'formik';
+import { FormikState, FormikValues, useFormik } from 'formik';
 
 export interface ActionModalProps {
   title: string;
@@ -16,9 +16,10 @@ export interface ActionModalProps {
   initialValues: any;
   submitText?: string;
   submitVariant?: string;
-  children?: (formik: FormikValues) => React.ReactNode;
+  children?: (formik: FormikState<any>) => React.ReactNode;
   onSubmit: (values: any) => void;
   close: () => void;
+  showActions?: boolean;
 }
 
 export const ActionModal: React.FC<ActionModalProps> = ({
@@ -31,6 +32,7 @@ export const ActionModal: React.FC<ActionModalProps> = ({
   onSubmit,
   children,
   close,
+  showActions = true,
 }) => {
   const formik = useFormik({
     enableReinitialize: true,
@@ -51,26 +53,28 @@ export const ActionModal: React.FC<ActionModalProps> = ({
           {children instanceof Function && children(formik)}
         </VStack>
       </ModalBody>
-      <ModalFooter>
-        <ButtonGroup>
-          <Button
-            variant={'solid'}
-            isLoading={loading}
-            colorScheme={'gray'}
-            onClick={() => close()}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant={'solid'}
-            isLoading={loading}
-            colorScheme={submitVariant}
-            onClick={() => formik.handleSubmit()}
-          >
-            {submitText}
-          </Button>
-        </ButtonGroup>
-      </ModalFooter>
+      {showActions && (
+        <ModalFooter>
+          <ButtonGroup>
+            <Button
+              variant={'solid'}
+              isLoading={loading}
+              colorScheme={'gray'}
+              onClick={() => close()}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant={'solid'}
+              isLoading={loading}
+              colorScheme={submitVariant}
+              onClick={() => formik.handleSubmit()}
+            >
+              {submitText}
+            </Button>
+          </ButtonGroup>
+        </ModalFooter>
+      )}
     </ModalContent>
   );
 };

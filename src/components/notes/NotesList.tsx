@@ -24,7 +24,7 @@ export const NotesList: React.FC<NotesListProps> = ({}) => {
   }, [params]);
 
   return (
-    <SimpleGrid columns={12} columnGap={3} rowGap={3}>
+    <SimpleGrid columns={12} columnGap={6} rowGap={6}>
       {data.items.map((item) => (
         <NoteItem key={item.note_id} item={item} />
       ))}
