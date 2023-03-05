@@ -2,6 +2,7 @@ import axios from 'axios';
 import { ApiResponse } from '../models/api.model';
 import { CreateNoteDto, FindNotesDto, Note } from '../models/notes.model';
 import { PaginatedData } from '../models/pagination.model';
+import { getAxiosInstance } from './axios-instance';
 import { API_URL } from './url';
 
 const NOTES_API_URL = `${API_URL}/notes`;
@@ -10,7 +11,7 @@ export async function fetchFindNotes(
   params: FindNotesDto
 ): Promise<PaginatedData<Note>> {
   try {
-    const res = await axios.get<ApiResponse<PaginatedData<Note>>>(
+    const res = await getAxiosInstance().get<ApiResponse<PaginatedData<Note>>>(
       NOTES_API_URL,
       { params }
     );
@@ -27,7 +28,7 @@ export async function fetchFindNotes(
 
 export async function fetchFindOneNote(note_id: string): Promise<Note> {
   try {
-    const res = await axios.get<ApiResponse<Note>>(
+    const res = await getAxiosInstance().get<ApiResponse<Note>>(
       `${NOTES_API_URL}/${note_id}`
     );
 
@@ -43,7 +44,10 @@ export async function fetchFindOneNote(note_id: string): Promise<Note> {
 
 export async function fetchCreateNote(dto: CreateNoteDto): Promise<Note> {
   try {
-    const res = await axios.post<ApiResponse<Note>>(NOTES_API_URL, dto);
+    const res = await getAxiosInstance().post<ApiResponse<Note>>(
+      NOTES_API_URL,
+      dto
+    );
 
     const {
       data: { data },
@@ -60,7 +64,7 @@ export async function fetchUpdateNote(
   dto: CreateNoteDto
 ): Promise<Note> {
   try {
-    const res = await axios.put<ApiResponse<Note>>(
+    const res = await getAxiosInstance().put<ApiResponse<Note>>(
       `${NOTES_API_URL}/${note_id}`,
       dto
     );
@@ -77,7 +81,7 @@ export async function fetchUpdateNote(
 
 export async function fetchDeleteNote(note_id: string): Promise<Note> {
   try {
-    const res = await axios.delete<ApiResponse<Note>>(
+    const res = await getAxiosInstance().delete<ApiResponse<Note>>(
       `${NOTES_API_URL}/${note_id}`
     );
 
