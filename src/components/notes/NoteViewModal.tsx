@@ -18,7 +18,7 @@ export const NoteViewModal: React.FC<any> = () => {
       close={onClose}
     >
       {(formik) => (
-        <Box width={'100%'} p={4}>
+        <Box width={'100%'} maxH={'80vh'} p={4} overflow={'auto'}>
           <MDEditor.Markdown source={formik.values.content ?? ''} />
         </Box>
       )}

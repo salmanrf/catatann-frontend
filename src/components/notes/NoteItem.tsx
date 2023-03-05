@@ -13,13 +13,11 @@ import {
   MenuItem,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 import MDEditor from '@uiw/react-md-editor';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Note } from '../../models/notes.model';
 import { DeleteIcon, EditIcon, ViewIcon } from '@chakra-ui/icons';
 import { useModalsStore } from '../../stores/modals.store';
-import remarkGfm from 'remark-gfm';
 
 interface Props {
   item: Note;

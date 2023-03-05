@@ -1,3 +1,4 @@
 export const API_CONFIG = {
   GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+  GOOGLE_OAUTH_REDIRECT: import.meta.env.VITE_GOOGLE_OAUTH_REDIRECT,
 };

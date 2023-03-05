@@ -2,6 +2,7 @@ import {
   Button,
   ButtonGroup,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -43,6 +44,7 @@ export const ActionModal: React.FC<ActionModalProps> = ({
   return (
     <ModalContent>
       <ModalHeader>{title}</ModalHeader>
+      <ModalCloseButton />
       <ModalBody>
         <VStack align={'center'}>
           {typeof message === 'string' ? (
